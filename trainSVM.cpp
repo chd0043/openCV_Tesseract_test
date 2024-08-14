@@ -12,7 +12,7 @@
 #include <vector>
 #include <sstream>
 
-#include "DetectLabel.cpp"
+#include "DetectLabel.h"
 
 using namespace std;
 using namespace cv;

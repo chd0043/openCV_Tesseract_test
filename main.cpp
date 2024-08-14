@@ -9,8 +9,8 @@
 #include <string.h>
 #include <time.h>
 
-#include "DetectLabel.cpp"
-#include "LabelOCR.cpp"
+#include "DetectLabel.h"
+#include "LabelOCR.h"
 
 using namespace cv;
 using namespace std;
