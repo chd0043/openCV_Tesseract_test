@@ -54,7 +54,6 @@ void DetectLabel::findRect(const Mat& inputImage, vector<vector<Point> > &mark)
     Mat edgesImage, binImage;
     vector<vector<Point> > contours;
     vector<Point> obj;
-    //double maxCosine = 0;
 
     Canny(inputImage, edgesImage, 10, 20, 3);
     dilate(edgesImage, edgesImage, Mat(), Point(-1,-1));
@@ -67,13 +66,6 @@ void DetectLabel::findRect(const Mat& inputImage, vector<vector<Point> > &mark)
         approxPolyDP(Mat(contours[i]), obj, objLen*0.02, true);
         if( obj.size() == 4 && fabs(contourArea(Mat(obj))) > 1000 && isContourConvex(Mat(obj)) )
             mark.push_back(obj);
-        //for (int j = 2; j < 5; j++)
-        //  {
-        //          double cosine = fabs(angle(obj[j%4], obj[j-2], obj[j-1]));
-        //          maxCosine = MAX(maxCosine, cosine);
-        //  }
-        //  if (maxCosine < 0.3)
-        //	 mark.push_back(obj);
     }
 }
 
@@ -188,7 +180,6 @@ void DetectLabel::createLabelMat(const Mat &normalImage, vector<Point> &contour,
     contourPersp[3] = contour[3];
 
     distanceP0P1 = distanceBetweenPoints( contourPersp[0], contourPersp[1] );
-    //distanceP0P2 = distanceBetweenPoints( contourPersp[0], contourPersp[2] );
     distanceP0P3 = distanceBetweenPoints( contourPersp[0], contourPersp[3] );
 
     if ( distanceP0P1 < distanceP0P3 ) 
@@ -212,7 +203,6 @@ void DetectLabel::createLabelMat(const Mat &normalImage, vector<Point> &contour,
 
 void DetectLabel::cropLabelImage(const Mat &normalImage, vector<Point> &contour, Mat &cropImage)
 {
-    // declare used vars
     Point2f contourPersp[4], pPerspOrig[4];
     Mat arMask;
 
@@ -230,8 +220,6 @@ void DetectLabel::cropLabelImage(const Mat &normalImage, vector<Point> &contour,
 
     Mat warpMatrix = getPerspectiveTransform(pPerspOrig, contourPersp);
     warpPerspective(blankImage, arMask, warpMatrix, blankImage.size());//, INTER_LINEAR, BORDER_CONSTANT );
-    //imshow("arMask",arMask);
-
     cropImageWithMask(normalImage, arMask, cropImage);
 }
 
@@ -275,12 +263,9 @@ vector<Point> DetectLabel::setReducedSquareContour( vector<Point> points )
 
 bool DetectLabel::verifySize(vector<Point> &contour)
 {
-    //float MaxPerimeter = 1450;
-    //float MinPerimeter = 530;
-    float MaxArea = 165000;
-    float MinArea = 12000;
+    const float MaxArea = 165000;
+    const float MinArea = 12000;
 
-    //float perimeter = arcLength(contour,true);
     float area = contourArea(contour);
 
     return  (area > MinArea && area < MaxArea);
@@ -288,7 +273,6 @@ bool DetectLabel::verifySize(vector<Point> &contour)
 
 void DetectLabel::segment(const Mat &InputImage, vector<Mat> &outputImage)
 {
-    //vector<LabelRegion> output;
     Mat binImage;
     vector<Mat> cropImage;
     vector<vector<Point> > auxSegments; // segments
@@ -330,9 +314,7 @@ void DetectLabel::segment(const Mat &InputImage, vector<Mat> &outputImage)
                 stringstream ss; ss << i;
                 string str = ss.str();
                 namedWindow("cropImage_"+str,WINDOW_NORMAL);
-                //namedWindow("cropImage_0",WINDOW_NORMAL);
                 imshow("cropImage_"+str, cropImage[i]);
-                //imshow("cropImage_0", cropImage[i]);
             }
         }
     }

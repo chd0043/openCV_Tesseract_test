@@ -89,7 +89,7 @@ int main( int argc, char** argv )
         int posLabels = possible_labels.size();
         if (posLabels > 0)
         {
-            //For each possible label, classify with svm if it's a label or no
+            //For each possible label, classify with svm if it is a label or no
             for(int i=0; i< posLabels; i++)
             {
                 if (!possible_labels[i].empty() )

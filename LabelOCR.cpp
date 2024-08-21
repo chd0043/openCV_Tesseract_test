@@ -33,7 +33,6 @@ void LabelOCR::filterUndesiredChars(string &str)
 
     for (unsigned int i = 0; i < strlen(chars); ++i)
     {
-        // you need include <algorithm> to use general algorithms like std::remove()
         str.erase (std::remove(str.begin(), str.end(), chars[i]), str.end());
     }
 }
@@ -50,10 +49,6 @@ void LabelOCR::preProcess(const Mat &InputImage, Mat &binImage)
     medianBlur(InputImage, dst, 3);
     filter2D(dst, midImage2, InputImage.depth(), HPKernel);
     cvtColor(midImage2, binImage, COLOR_RGB2GRAY);
-    //threshold(midImage, binImage, 60, 255, CV_THRESH_BINARY);
-    //threshold(binImage, binImage ,0, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
-    //erode(binImage, binImage, 3, Point(-1, -1), 2, 1, 1);
-    //morphologyEx( binImage,binImage,MORPH_CLOSE, Morph);
 }
 
 string LabelOCR::runPrediction1(const Mat &labelImage, int i)
@@ -93,7 +88,6 @@ string LabelOCR::runPrediction1(const Mat &labelImage, int i)
         stringstream ss; ss << i;
         string str = ss.str();
 
-        //imshow("label_"+str, labelImage);
         imshow("textImage_1_"+str, textImage);
         imshow("letters_1_"+str, drawImage);
     }
@@ -138,7 +132,6 @@ string LabelOCR::runPrediction2(const Mat &labelImage, int i)
         stringstream ss; ss << i;
         string str = ss.str();
 
-        //imshow("label_"+str, labelImage);
         imshow("textImage_2_"+str, textImage);
         imshow("letters_2_"+str, drawImage);
     }
