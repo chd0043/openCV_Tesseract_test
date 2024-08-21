@@ -27,3 +27,6 @@ include_directories(${Tesseract_INCLUDE_DIRS})
 target_link_libraries(OpenCV_Tesseract_test ${OpenCV_LIBS} ${Tesseract_LIBRARIES})
 target_link_libraries(OpenCV_Tesseract_train ${OpenCV_LIBS} ${Tesseract_LIBRARIES})
 
+# Compiler flags
+target_compile_options(OpenCV_Tesseract_test PRIVATE -Wall -Wextra -O2)
+target_compile_options(OpenCV_Tesseract_train PRIVATE -Wall -Wextra -O2)
