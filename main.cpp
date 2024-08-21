@@ -47,7 +47,6 @@ int main( int argc, char** argv )
 	namedWindow("normal",WINDOW_NORMAL);
 
 	// SVM learning algorithm
-
 	clock_t begin_time = clock();
 	// Read file storage.
 	FileStorage fs;
@@ -93,7 +92,7 @@ int main( int argc, char** argv )
 					Mat gray;
 					cvtColor(possible_labels[i], gray, cv::COLOR_RGB2GRAY);
 					Mat p= gray.reshape(1, 1);
-					p.convertTo(p, CV_32FC1); // CV_32FC1
+					p.convertTo(p, CV_32FC1); 
 					int response = (int)svmClassifier->predict( p );
 					cout << "Class: " << response << endl;
 					if(response==1)
@@ -109,7 +108,6 @@ int main( int argc, char** argv )
 		if ( label_2.size() > 0) {
 			labelText2 = labelOcr.runRecognition(label_2,2);
 		}
-
 
 		if(waitKey(30) >= 0) break;
 	}

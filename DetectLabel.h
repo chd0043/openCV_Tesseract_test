@@ -10,7 +10,6 @@
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
-//#include <opencv2/cvaux.hpp>
 #include <opencv2/ml.hpp>
 
 #include <iostream>

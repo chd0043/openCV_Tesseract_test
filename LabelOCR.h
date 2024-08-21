@@ -17,7 +17,6 @@
 #include <sstream>
 
 #include <tesseract/baseapi.h>
-//#include <tesseract/strngs.h>
 
 using namespace cv;
 using namespace std;
