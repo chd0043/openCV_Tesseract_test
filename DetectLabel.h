@@ -60,7 +60,7 @@ class DetectLabel
         //
         Mat blankImage;
         vector<vector<Point> > segments;
-        int MaxNumLabels;
+        size_t MaxNumLabels;
         int labelCounter;
 
 };

@@ -54,7 +54,7 @@ void DetectLabel::findRect(const Mat& inputImage, vector<vector<Point> > &mark)
     Mat edgesImage, binImage;
     vector<vector<Point> > contours;
     vector<Point> obj;
-    double maxCosine = 0;
+    //double maxCosine = 0;
 
     Canny(inputImage, edgesImage, 10, 20, 3);
     dilate(edgesImage, edgesImage, Mat(), Point(-1,-1));
@@ -178,8 +178,8 @@ Scalar DetectLabel::regionAvgColor(const Mat &img, const Mat &mask)
 void DetectLabel::createLabelMat(const Mat &normalImage, vector<Point> &contour, Mat &labelImage)
 {
     labelImage = Mat::zeros(200, 400, CV_8UC3);
-    Point2f labelPoints[4], pPerspOrig[4], contourPersp[4];
-    float distanceP0P1, distanceP0P2, distanceP0P3;
+    Point2f labelPoints[4], contourPersp[4];
+    float distanceP0P1, distanceP0P3;
 
     //contour = sortCorners(contour);
     contourPersp[0] = contour[0];
@@ -188,7 +188,7 @@ void DetectLabel::createLabelMat(const Mat &normalImage, vector<Point> &contour,
     contourPersp[3] = contour[3];
 
     distanceP0P1 = distanceBetweenPoints( contourPersp[0], contourPersp[1] );
-    distanceP0P2 = distanceBetweenPoints( contourPersp[0], contourPersp[2] );
+    //distanceP0P2 = distanceBetweenPoints( contourPersp[0], contourPersp[2] );
     distanceP0P3 = distanceBetweenPoints( contourPersp[0], contourPersp[3] );
 
     if ( distanceP0P1 < distanceP0P3 ) 
@@ -237,10 +237,11 @@ void DetectLabel::cropLabelImage(const Mat &normalImage, vector<Point> &contour,
 
 bool DetectLabel::regionIsCloseToWhite(const Mat &img, const Mat &mask)
 {
-    float rChannelMax = 150;
-    float gChannelMax = 150;
-    float bChannelMax = 150;
+    const float rChannelMax = 150;
+    const float gChannelMax = 150;
+    const float bChannelMax = 150;
     Scalar avg_color;
+    (void)mask;
 
     avg_color = mean(img);
 
@@ -248,8 +249,8 @@ bool DetectLabel::regionIsCloseToWhite(const Mat &img, const Mat &mask)
     cout << avg_color << endl;
 
     return (avg_color[0] > bChannelMax &&
-            avg_color[1] > bChannelMax &&
-            avg_color[2] > bChannelMax );
+            avg_color[1] > gChannelMax &&
+            avg_color[2] > rChannelMax );
 }
 
 
@@ -274,12 +275,12 @@ vector<Point> DetectLabel::setReducedSquareContour( vector<Point> points )
 
 bool DetectLabel::verifySize(vector<Point> &contour)
 {
-    float MaxPerimeter = 1450;
-    float MinPerimeter = 530;
+    //float MaxPerimeter = 1450;
+    //float MinPerimeter = 530;
     float MaxArea = 165000;
     float MinArea = 12000;
 
-    float perimeter = arcLength(contour,true);
+    //float perimeter = arcLength(contour,true);
     float area = contourArea(contour);
 
     return  (area > MinArea && area < MaxArea);
@@ -291,7 +292,7 @@ void DetectLabel::segment(const Mat &InputImage, vector<Mat> &outputImage)
     Mat binImage;
     vector<Mat> cropImage;
     vector<vector<Point> > auxSegments; // segments
-    int MaxIter;
+    size_t MaxIter;
 
     segments.clear();
 

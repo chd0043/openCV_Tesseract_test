@@ -132,6 +132,9 @@ void labelToXml(){
 
 int main ( int argc, char** argv )
 {
+    (void)argc;
+    (void)argv;
+
     VideoCapture cap(0); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return -1;
@@ -145,11 +148,12 @@ int main ( int argc, char** argv )
     while(true)
     {
         //
-        cout << "Seleccione que desea hacer: " << endl;
-        cout << "1) Tomar muestras positivas de etiqueta 1. " << endl;
-        cout << "2) Tomar muestras positivas de etiqueta 2. " << endl;
-        cout << "3) Tomar muestras negativas para dataset. " << endl;
-        cout << "4) Guardar informacion en XML. " << endl;
+        cout << "Select a command: " << endl;
+        cout << "1) Take positive Label 1 samples. " << endl;
+        cout << "2) Take positive Label 2 samples. " << endl;
+        cout << "3) Take negative samples for dataset. " << endl;
+        cout << "4) Save data in XML file. " << endl;
+        cout << "* 'Ctrl' + 'C' to Exit. " << endl;
         cin >> opcion;
 
         switch (opcion)
@@ -176,5 +180,5 @@ int main ( int argc, char** argv )
         if(waitKey(30) >= 0) break;
     }
 
-    return 0;
+    return (0);
 }
