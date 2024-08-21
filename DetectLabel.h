@@ -8,9 +8,10 @@
 #ifndef DETECTLABEL_H_
 #define DETECTLABEL_H_
 
-#include <cv.h>
-#include <highgui.h>
-#include <cvaux.h>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
+//#include <opencv2/cvaux.hpp>
+#include <opencv2/ml.hpp>
 
 #include <iostream>
 #include <math.h>

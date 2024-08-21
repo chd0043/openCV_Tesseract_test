@@ -8,9 +8,8 @@
 #ifndef LABELOCR_H_
 #define LABELOCR_H_
 
-#include <cv.h>
-#include <highgui.h>
-#include <cvaux.h>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
 
 #include <iostream>
 #include <math.h>
@@ -18,7 +17,7 @@
 #include <sstream>
 
 #include <tesseract/baseapi.h>
-#include <tesseract/strngs.h>
+//#include <tesseract/strngs.h>
 
 using namespace cv;
 using namespace std;

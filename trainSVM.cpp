@@ -2,10 +2,6 @@
 
 *****************************************************************************/
 
-#include <cv.h>
-#include <highgui.h>
-#include <cvaux.h>
-
 #include <iostream>
 #include <math.h>
 #include <string.h>
@@ -17,9 +13,9 @@
 using namespace std;
 using namespace cv;
 
-const string pathLabels1 = "/home/turtlebot/catkin_ws/src/opencv_01/src/vision/ml/LabelDataset/label1_";
-const string pathLabels2 = "/home/turtlebot/catkin_ws/src/opencv_01/src/vision/ml/LabelDataset/label2_";
-const string path_NoLabels = "/home/turtlebot/catkin_ws/src/opencv_01/src/vision/ml/LabelDataset/noLabel_";
+const string pathLabels1 = "/home/chd/Documents/sandbox/openCV_Tesseract_test/ml/LabelDataset/label1_";
+const string pathLabels2 = "/home/chd/Documents/sandbox/openCV_Tesseract_test/ml/LabelDataset/label2_";
+const string path_NoLabels = "/home/chd/Documents/sandbox/openCV_Tesseract_test/ml/LabelDataset/noLabel_";
 
 int numLabel1=100;
 int numLabel2=100;
@@ -120,7 +116,7 @@ void labelToXml(){
     trainingData.convertTo(trainingData, CV_32FC1);
     Mat(trainingLabels).copyTo(classes);
 
-    FileStorage fs("/home/turtlebot/catkin_ws/src/opencv_01/src/vision/ml/SVM.xml", FileStorage::WRITE);
+    FileStorage fs("/home/chd/Documents/sandbox/openCV_Tesseract_test/ml/SVM.xml", FileStorage::WRITE);
     fs << "TrainingData" << trainingData;
     fs << "classes" << classes;
     fs.release();
@@ -129,7 +125,7 @@ void labelToXml(){
 
 int main ( int argc, char** argv )
 {
-    VideoCapture cap(1); // open the default camera
+    VideoCapture cap(0); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return -1;
     int opcion;
@@ -139,8 +135,8 @@ int main ( int argc, char** argv )
     cout << "OpenCV Training SVM \n";
     cout << "\n";
 
-	while(true){
-
+	while(true)
+	{
 		//
 		cout << "Seleccione que desea hacer: " << endl;
 		cout << "1) Tomar muestras positivas de etiqueta 1. " << endl;
@@ -169,11 +165,8 @@ int main ( int argc, char** argv )
 
 		}
 
-
-
 		if(waitKey(30) >= 0) break;
 	}
-
 
     return 0;
 }

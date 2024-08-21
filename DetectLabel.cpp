@@ -30,7 +30,7 @@ void DetectLabel::binariza(const Mat &InputImage, Mat &binImage)
     Mat midImage;
 
     cvtColor(InputImage, midImage, COLOR_RGB2GRAY);
-    threshold(midImage, binImage ,170, 255, CV_THRESH_BINARY);
+    threshold(midImage, binImage ,170, 255, cv::THRESH_BINARY);
     //morphologyEx( binImage,binImage,MORPH_CLOSE, Morph);
     if (showAllImages) {
         namedWindow("binImage",WINDOW_NORMAL);
@@ -57,7 +57,7 @@ void DetectLabel::findRect(const Mat& inputImage, vector<vector<Point> > &mark)
     Canny(inputImage, edgesImage, 10, 20, 3);
     dilate(edgesImage, edgesImage, Mat(), Point(-1,-1));
 
-    findContours(edgesImage, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+    findContours(edgesImage, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 
     for( size_t i = 0; i < contours.size(); i++ )
     {
@@ -143,14 +143,14 @@ vector<Point> DetectLabel::sortCorners( vector<Point> square ) {
 
 void DetectLabel::cropImageWithMask(const Mat &img_orig, const Mat &mask, Mat &crop){
     Mat Image, maskModImage;
-    cvtColor(img_orig, Image, CV_BGR2GRAY);
-    cvtColor(mask, maskModImage, CV_BGR2GRAY);
+    cvtColor(img_orig, Image, cv::COLOR_BGR2GRAY);
+    cvtColor(mask, maskModImage, cv::COLOR_BGR2GRAY);
     bitwise_and(maskModImage,Image,crop);
 }
 
 void DetectLabel::cropImageColor(const Mat &img, const Mat &cropImage, Mat & color_crop){
     Mat ImgCropRGB;
-    cvtColor(cropImage, ImgCropRGB, CV_GRAY2RGB);
+    cvtColor(cropImage, ImgCropRGB, cv::COLOR_GRAY2RGB);
     bitwise_and(img, ImgCropRGB, color_crop);
 }
 
