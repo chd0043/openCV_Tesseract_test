@@ -7,7 +7,8 @@
 
 #include "DetectLabel.h"
 
-DetectLabel::DetectLabel() {
+DetectLabel::DetectLabel() 
+{
     //constructor
     int blankWidth  = 640; //
     int blankHeight = 480; //
@@ -21,7 +22,8 @@ DetectLabel::DetectLabel() {
     labelCounter = 0;
 }
 
-DetectLabel::~DetectLabel() {
+DetectLabel::~DetectLabel() 
+{
     // Auto-generated destructor stub
 }
 
@@ -75,7 +77,8 @@ void DetectLabel::findRect(const Mat& inputImage, vector<vector<Point> > &mark)
     }
 }
 
-Point DetectLabel::getCenter( vector<Point> points ) {
+Point DetectLabel::getCenter( vector<Point> points ) 
+{
     Point center = Point( 0.0, 0.0 );
 
     for( size_t i = 0; i < points.size(); i++ ) {
@@ -87,22 +90,26 @@ Point DetectLabel::getCenter( vector<Point> points ) {
     return (center);
 }
 
-float DetectLabel::distanceBetweenPoints( Point p1, Point p2 ) {
-
-    if( p1.x == p2.x ) {
+float DetectLabel::distanceBetweenPoints( Point p1, Point p2 ) 
+{
+    if( p1.x == p2.x ) 
+    {
         return ( abs( p2.y - p1.y ) );
     }
-    else if( p1.y == p2.y ) {
+    else if( p1.y == p2.y ) 
+    {
         return ( abs( p2.x - p1.x ) );
     }
-    else {
+    else 
+    {
         float dx = p2.x - p1.x;
         float dy = p2.y - p1.y;
         return ( sqrt( (dx*dx)+(dy*dy) ) );
     }
 }
 
-vector<Point> DetectLabel::sortCorners( vector<Point> square ) {
+vector<Point> DetectLabel::sortCorners( vector<Point> square ) 
+{
     // 0----1
     // |    |
     // |    |
@@ -110,30 +117,35 @@ vector<Point> DetectLabel::sortCorners( vector<Point> square ) {
     Point center = getCenter( square );
 
     vector<Point> sorted_square;
-    for( size_t i = 0; i < square.size(); i++ ) {
-        if ( (square[i].x - center.x) < 0 && (square[i].y - center.y) < 0 ) {
-            switch( i ) {
-            case 0:
-                sorted_square = square;
-                break;
-            case 1:
-                sorted_square.push_back( square[1] );
-                sorted_square.push_back( square[2] );
-                sorted_square.push_back( square[3] );
-                sorted_square.push_back( square[0] );
-                break;
-            case 2:
-                sorted_square.push_back( square[2] );
-                sorted_square.push_back( square[3] );
-                sorted_square.push_back( square[0] );
-                sorted_square.push_back( square[1] );
-                break;
-            case 3:
-                sorted_square.push_back( square[3] );
-                sorted_square.push_back( square[0] );
-                sorted_square.push_back( square[1] );
-                sorted_square.push_back( square[2] );
-                break;
+    for( size_t i = 0; i < square.size(); i++ ) 
+    {
+        if ( (square[i].x - center.x) < 0 && (square[i].y - center.y) < 0 ) 
+        {
+            switch( i ) 
+            {
+                case 0:
+                    sorted_square = square;
+                    break;
+                case 1:
+                    sorted_square.push_back( square[1] );
+                    sorted_square.push_back( square[2] );
+                    sorted_square.push_back( square[3] );
+                    sorted_square.push_back( square[0] );
+                    break;
+                case 2:
+                    sorted_square.push_back( square[2] );
+                    sorted_square.push_back( square[3] );
+                    sorted_square.push_back( square[0] );
+                    sorted_square.push_back( square[1] );
+                    break;
+                case 3:
+                    sorted_square.push_back( square[3] );
+                    sorted_square.push_back( square[0] );
+                    sorted_square.push_back( square[1] );
+                    sorted_square.push_back( square[2] );
+                    break;
+                default:
+                    break;
             }
             break;
         }
@@ -141,27 +153,30 @@ vector<Point> DetectLabel::sortCorners( vector<Point> square ) {
     return (sorted_square);
 }
 
-void DetectLabel::cropImageWithMask(const Mat &img_orig, const Mat &mask, Mat &crop){
+void DetectLabel::cropImageWithMask(const Mat &img_orig, const Mat &mask, Mat &crop)
+{
     Mat Image, maskModImage;
     cvtColor(img_orig, Image, cv::COLOR_BGR2GRAY);
     cvtColor(mask, maskModImage, cv::COLOR_BGR2GRAY);
     bitwise_and(maskModImage,Image,crop);
 }
 
-void DetectLabel::cropImageColor(const Mat &img, const Mat &cropImage, Mat & color_crop){
+void DetectLabel::cropImageColor(const Mat &img, const Mat &cropImage, Mat & color_crop)
+{
     Mat ImgCropRGB;
     cvtColor(cropImage, ImgCropRGB, cv::COLOR_GRAY2RGB);
     bitwise_and(img, ImgCropRGB, color_crop);
 }
 
-Scalar DetectLabel::regionAvgColor(const Mat &img, const Mat &mask){
+Scalar DetectLabel::regionAvgColor(const Mat &img, const Mat &mask)
+{
     Scalar avg_color;
     avg_color = mean(img, mask);
     return (avg_color);
 }
 
-void DetectLabel::createLabelMat(const Mat &normalImage, vector<Point> &contour, Mat &labelImage){
-
+void DetectLabel::createLabelMat(const Mat &normalImage, vector<Point> &contour, Mat &labelImage)
+{
     labelImage = Mat::zeros(200, 400, CV_8UC3);
     Point2f labelPoints[4], pPerspOrig[4], contourPersp[4];
     float distanceP0P1, distanceP0P2, distanceP0P3;
@@ -176,13 +191,15 @@ void DetectLabel::createLabelMat(const Mat &normalImage, vector<Point> &contour,
     distanceP0P2 = distanceBetweenPoints( contourPersp[0], contourPersp[2] );
     distanceP0P3 = distanceBetweenPoints( contourPersp[0], contourPersp[3] );
 
-    if ( distanceP0P1 < distanceP0P3 ) {
+    if ( distanceP0P1 < distanceP0P3 ) 
+    {
         labelPoints[0]=(Point2f(0, 0));
         labelPoints[1]=(Point2f(0, labelImage.rows));
         labelPoints[2]=(Point2f(labelImage.cols, labelImage.rows));
         labelPoints[3]=(Point2f(labelImage.cols, 0));
     }
-    else {
+    else 
+    {
         labelPoints[1]=(Point2f(0, 0));
         labelPoints[2]=(Point2f(0, labelImage.rows));
         labelPoints[3]=(Point2f(labelImage.cols, labelImage.rows));
@@ -193,7 +210,8 @@ void DetectLabel::createLabelMat(const Mat &normalImage, vector<Point> &contour,
     warpPerspective(normalImage, labelImage, transmtx, labelImage.size());
 }
 
-void DetectLabel::cropLabelImage(const Mat &normalImage, vector<Point> &contour, Mat &cropImage){
+void DetectLabel::cropLabelImage(const Mat &normalImage, vector<Point> &contour, Mat &cropImage)
+{
     // declare used vars
     Point2f contourPersp[4], pPerspOrig[4];
     Mat arMask;
@@ -217,7 +235,8 @@ void DetectLabel::cropLabelImage(const Mat &normalImage, vector<Point> &contour,
     cropImageWithMask(normalImage, arMask, cropImage);
 }
 
-bool DetectLabel::regionIsCloseToWhite(const Mat &img, const Mat &mask){
+bool DetectLabel::regionIsCloseToWhite(const Mat &img, const Mat &mask)
+{
     float rChannelMax = 150;
     float gChannelMax = 150;
     float bChannelMax = 150;
@@ -234,8 +253,8 @@ bool DetectLabel::regionIsCloseToWhite(const Mat &img, const Mat &mask){
 }
 
 
-vector<Point> DetectLabel::setReducedSquareContour( vector<Point> points ) {
-
+vector<Point> DetectLabel::setReducedSquareContour( vector<Point> points ) 
+{
     vector<Point> modPoints;
     // 1----2
     // |    |
@@ -251,10 +270,10 @@ vector<Point> DetectLabel::setReducedSquareContour( vector<Point> points ) {
         modPoints[2] = points[2];
     }
     return (modPoints);
-}//int labelCounter;
+}
 
-bool DetectLabel::verifySize(vector<Point> &contour){
-
+bool DetectLabel::verifySize(vector<Point> &contour)
+{
     float MaxPerimeter = 1450;
     float MinPerimeter = 530;
     float MaxArea = 165000;
@@ -264,10 +283,10 @@ bool DetectLabel::verifySize(vector<Point> &contour){
     float area = contourArea(contour);
 
     return  (area > MinArea && area < MaxArea);
-
 }
 
-void DetectLabel::segment(const Mat &InputImage, vector<Mat> &outputImage){
+void DetectLabel::segment(const Mat &InputImage, vector<Mat> &outputImage)
+{
     //vector<LabelRegion> output;
     Mat binImage;
     vector<Mat> cropImage;
@@ -289,21 +308,24 @@ void DetectLabel::segment(const Mat &InputImage, vector<Mat> &outputImage){
     {
         if (i > MaxNumLabels-1)
             break;
-        if( verifySize(segments[i]) ) {
+        if( verifySize(segments[i]) ) 
+        {
             cropLabelImage(InputImage, segments[i], cropImage[i]);
             createLabelMat(InputImage, segments[i], outputImage[i]);
             auxSegments.push_back(segments[i]);
             labelCounter++;
 
             // ----- show pictures ------- //
-            if (showBasicImages || showAllImages) {
+            if (showBasicImages || showAllImages) 
+            {
                 stringstream ss; ss << i;
                 string str = ss.str();
                 Mat modImage = InputImage.clone();
                 drawContours(modImage, segments, -1, Scalar(0, 255, 0), 3 );
                 imshow("normal", modImage);
             }
-            if (showAllImages) {
+            if (showAllImages) 
+            {
                 stringstream ss; ss << i;
                 string str = ss.str();
                 namedWindow("cropImage_"+str,WINDOW_NORMAL);
@@ -313,5 +335,4 @@ void DetectLabel::segment(const Mat &InputImage, vector<Mat> &outputImage){
             }
         }
     }
-
 }

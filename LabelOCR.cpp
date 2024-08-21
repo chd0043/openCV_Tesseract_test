@@ -7,7 +7,8 @@
 
 #include "LabelOCR.h"
 
-LabelOCR::LabelOCR() {
+LabelOCR::LabelOCR() 
+{
     // constructor
     // Pass it to Tesseract API
 
@@ -18,14 +19,16 @@ LabelOCR::LabelOCR() {
     showImages = true;
 }
 
-LabelOCR::~LabelOCR() {
+LabelOCR::~LabelOCR() 
+{
     //destructor
 
     tess.Clear();
     tess.End();
 }
 
-void LabelOCR::filterUndesiredChars(string &str){
+void LabelOCR::filterUndesiredChars(string &str)
+{
     char chars[] = "?";
 
     for (unsigned int i = 0; i < strlen(chars); ++i)
@@ -53,8 +56,8 @@ void LabelOCR::preProcess(const Mat &InputImage, Mat &binImage)
     //morphologyEx( binImage,binImage,MORPH_CLOSE, Morph);
 }
 
-string LabelOCR::runPrediction1(const Mat &labelImage, int i){
-
+string LabelOCR::runPrediction1(const Mat &labelImage, int i)
+{
     string t1;
     if (labelImage.empty())
         return (t1);
@@ -82,7 +85,8 @@ string LabelOCR::runPrediction1(const Mat &labelImage, int i){
 
     cout << "label_" << i << ": " << t1 << endl;
 
-    if (showImages){
+    if (showImages)
+    {
         putText(drawImage, t1, Point(labelROI.x+7, labelROI.y-5), FONT_HERSHEY_PLAIN, 1.5, Scalar(0, 0, 255), 2, 8); // CV_FONT_HERSHEY_SIMPLEX
         rectangle(drawImage, labelROI, Scalar(0, 0, 255), 2, 8, 0);
         //
@@ -97,8 +101,8 @@ string LabelOCR::runPrediction1(const Mat &labelImage, int i){
     return (t1);
 }
 
-string LabelOCR::runPrediction2(const Mat &labelImage, int i){
-
+string LabelOCR::runPrediction2(const Mat &labelImage, int i)
+{
     string t1;
     if (labelImage.empty())
         return (t1);
@@ -126,7 +130,8 @@ string LabelOCR::runPrediction2(const Mat &labelImage, int i){
 
     cout << "label_" << i << ": " << t1 << endl;
 
-    if (showImages){
+    if (showImages)
+    {
         putText(drawImage, t1, Point(labelROI.x+7, labelROI.y-5), FONT_HERSHEY_PLAIN, 1.5, Scalar(0, 0, 255), 2, 8); // CV_FONT_HERSHEY_SIMPLEX
         rectangle(drawImage, labelROI, Scalar(0, 0, 255), 2, 8, 0);
         //
