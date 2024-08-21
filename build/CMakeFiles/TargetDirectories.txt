@@ -1,4 +1,0 @@
-/home/chd/Documents/sandbox/openCV_Tesseract_test/build/CMakeFiles/OpenCV_Tesseract_test.dir
-/home/chd/Documents/sandbox/openCV_Tesseract_test/build/CMakeFiles/OpenCV_Tesseract_train.dir
-/home/chd/Documents/sandbox/openCV_Tesseract_test/build/CMakeFiles/edit_cache.dir
-/home/chd/Documents/sandbox/openCV_Tesseract_test/build/CMakeFiles/rebuild_cache.dir

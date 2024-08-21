@@ -17,9 +17,9 @@ const string pathLabels1 = "/home/chd/Documents/sandbox/openCV_Tesseract_test/ml
 const string pathLabels2 = "/home/chd/Documents/sandbox/openCV_Tesseract_test/ml/LabelDataset/label2_";
 const string path_NoLabels = "/home/chd/Documents/sandbox/openCV_Tesseract_test/ml/LabelDataset/noLabel_";
 
-int numLabel1=100;
-int numLabel2=100;
-int numNoLabels=200;
+int numLabel1=50;
+int numLabel2=50;
+int numNoLabels=50;
 int imageWidth=400;
 int imageHeight=200;
 
